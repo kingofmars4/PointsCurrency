@@ -1,0 +1,9 @@
+name: PointsSystem
+author: KingOfMars4
+main: me.kingofmars4.points.Main
+version: 1.0
+description: Complete economy system by KingOfMars4
+depends: [Vault]
+commands:
+    points:
+        usage: /points

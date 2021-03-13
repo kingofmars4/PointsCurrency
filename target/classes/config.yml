@@ -1,0 +1,8 @@
+pluginPrefix: '&f[Points] '
+MySQL:
+    host: "localhost"
+    port: "3306"
+    database: "db"
+    username: "root"
+    usingPassword: false
+    password: "password"
