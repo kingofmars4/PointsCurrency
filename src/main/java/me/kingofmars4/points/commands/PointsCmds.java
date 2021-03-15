@@ -14,7 +14,7 @@ public class PointsCmds implements CommandExecutor {
 	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		if (!sender.hasPermission("points.see")) { sender.sendMessage(U.color("&cYou have no permission!")); }
+		if (!sender.hasPermission("points.see")) { sender.sendMessage(U.color("&cYou have no permission!")); return true;}
 		CurrencyManager cm = new CurrencyManager();
 		
 		
@@ -43,7 +43,7 @@ public class PointsCmds implements CommandExecutor {
 		} else if (args.length == 2) {
 			
 			if (args[0].equalsIgnoreCase("clear")) {
-				if (!sender.hasPermission("points.clear")) { sender.sendMessage(U.color("&cYou have no permission!")); }
+				if (!sender.hasPermission("points.clear")) { sender.sendMessage(U.color("&cYou have no permission!")); return true;}
 				if (cm.playerExists(args[1])) {
 						cm.resetPoints(args[1]);
 						sender.sendMessage(Main.pluginPrefix+U.color("&5Succefully cleared &e"+args[1]+" &5points!"));
@@ -60,7 +60,7 @@ public class PointsCmds implements CommandExecutor {
 		} else if (args.length == 3) {
 			
 			if (args[0].equalsIgnoreCase("add")) {
-				if (!sender.hasPermission("points.add")) { sender.sendMessage(U.color("&cYou have no permission!")); }
+				if (!sender.hasPermission("points.add")) { sender.sendMessage(U.color("&cYou have no permission!")); return true;}
 				if (!cm.playerExists(args[1])) {invalidPlayer(args[1], sender); return true;}
 				if (!U.isDouble(args[2])) { sender.sendMessage(Main.pluginPrefix+U.color("&5Please insert a valid numeric quantity!")); return true; }
 				
@@ -73,7 +73,7 @@ public class PointsCmds implements CommandExecutor {
 			}
 			
 			if (args[0].equalsIgnoreCase("remove")) {
-				if (!sender.hasPermission("points.remove")) { sender.sendMessage(U.color("&cYou have no permission!")); }
+				if (!sender.hasPermission("points.remove")) { sender.sendMessage(U.color("&cYou have no permission!")); return true;}
 				if (!cm.playerExists(args[1])) {invalidPlayer(args[1], sender); return true;}
 				if (!U.isDouble(args[2])) { sender.sendMessage(Main.pluginPrefix+U.color("&5Please insert a valid numeric quantity!")); return true; }
 				
@@ -84,7 +84,7 @@ public class PointsCmds implements CommandExecutor {
 			}
 			
 			if (args[0].equalsIgnoreCase("set")) {
-				if (!sender.hasPermission("points.set")) { sender.sendMessage(U.color("&cYou have no permission!")); }
+				if (!sender.hasPermission("points.set")) { sender.sendMessage(U.color("&cYou have no permission!")); return true;}
 				if (!cm.playerExists(args[1])) {invalidPlayer(args[1], sender); return true;}
 				if (!U.isDouble(args[2])) { sender.sendMessage(Main.pluginPrefix+U.color("&5Please insert a valid numeric quantity!")); return true; }
 				if (Double.parseDouble(args[2])<0) { sender.sendMessage(Main.pluginPrefix+U.color("&5Please insert number above 0!")); return true; }

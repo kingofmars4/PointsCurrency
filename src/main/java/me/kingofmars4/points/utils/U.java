@@ -6,8 +6,11 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 public class U {
 	
@@ -66,6 +69,29 @@ public class U {
 		im.setDisplayName(color(nome));
 		i.setItemMeta(im);
 		return i;
+	}
+    
+    public static void createDisplay(ItemStack is, Inventory inv, int Slot, String name, String lore) {
+		ItemStack item = is;
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(name);
+		ArrayList<String> Lore = new ArrayList<String>();
+		Lore.add(lore);
+		meta.setLore(Lore);
+		item.setItemMeta(meta);
+		 
+		inv.setItem(Slot, item); 
+	}
+
+	public static ItemStack createSkull(String owner, String name, String lore) {
+		ItemStack skull;
+        skull = new ItemStack(Material.PLAYER_HEAD, 1);
+        SkullMeta sm = (SkullMeta) skull.getItemMeta();
+        Player player = Bukkit.getPlayer(owner);
+        sm.setOwningPlayer(player);
+        skull.setItemMeta(sm);
+        
+        return skull;
 	}
 	
 }

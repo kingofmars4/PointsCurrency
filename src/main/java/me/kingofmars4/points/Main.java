@@ -4,32 +4,51 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.kingofmars4.points.commands.Pay;
 import me.kingofmars4.points.commands.PointsCmds;
 import me.kingofmars4.points.listeners.OnJoin;
+import me.kingofmars4.points.utils.CurrencyManager;
 import me.kingofmars4.points.utils.U;
+import net.milkbowl.vault.economy.Economy;
 
 public class Main extends JavaPlugin {
 	
 	public static Main getPlugin() { return (Main)JavaPlugin.getPlugin(Main.class); }
 	public static String pluginPrefix;
+	private Economy econ;
 	
 	@Override
 	public void onEnable() {
 		loadConfig();
 		loadDatabase();
+		setupEconomy();
 		loadCommands();
 		loadListeners();
 	}
 	
 	public void loadCommands() {
 		getCommand("points").setExecutor(new PointsCmds());
+		getCommand("pay").setExecutor(new Pay());
+	}
+	
+	private boolean setupEconomy() {
+	       if (this.getServer().getPluginManager().getPlugin("Vault") == null)
+	           return false;
+	   
+	       econ = new CurrencyManager();
+	       this.getServer().getServicesManager().register(Economy.class, econ, this.getServer().getPluginManager().getPlugin("Vault"), ServicePriority.Highest);
+	       getLogger().info("Hooked into Vault!");
+	   
+	       return true;
 	}
 
 	
 	public void loadListeners() {
 		getServer().getPluginManager().registerEvents(new OnJoin(), this);
+		getServer().getPluginManager().registerEvents(new Pay(), this);
 	}
 	
 	
@@ -40,8 +59,6 @@ public class Main extends JavaPlugin {
 		pluginPrefix = U.color(getConfig().getString("PluginPrefix"));
 		getLogger().info("Configuration file succefully loaded.");
 	}
-	
-	
 	
 	
 	

@@ -2,8 +2,11 @@ name: PointsSystem
 author: KingOfMars4
 main: me.kingofmars4.points.Main
 version: 1.0
+api-version: 1.13
 description: Complete economy system by KingOfMars4
-depends: [Vault]
+depend: [Vault]
 commands:
     points:
         usage: /points
+    pay:
+        usage: /pay
